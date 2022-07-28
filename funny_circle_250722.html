@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  
+  <button onclick="StopShow();">Stop Show</button><br>
+
+  <canvas id="myCanvas" width="1368px;" height="768px;" style="border: 1px solid #0099ff;">
+
+  </canvas>
+</body>
+    
+</html>
+
+<script>
+  
+  function Circle(x,y,radius) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+  }
+
+  // getRandomHex() sẽ sinh ra một số ngẫu nhiên nằm trong khoảng 0-255
+    function getRandomHex() {
+    return Math.floor(Math.random()*255);
+
+  }
+
+  // getRandomColor() sinh ra một màu ngẫu nhiên
+  function getRandomColor() {
+    var red = getRandomHex();
+    var green = getRandomHex();
+    var blue = getRandomHex();
+
+  // tạo mã màu theo rgb: rgb(255,0,0)
+
+    return "rgb(" + red + ", " + blue + ", " +  green + ")";
+  }
+
+  // vẽ một hình tròn
+  function createCircle() {
+    var ctx = document.getElementById("myCanvas").getContext("2d");
+    var radius = Math.floor(Math.random() * 80);
+    var x = Math.random() * window.innerWidth;
+    var y = Math.random() * window.innerHeight;
+    var myColor = getRandomColor();
+
+    var circle = new Circle(x, y, radius);
+    ctx.beginPath();
+    ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+    
+    ctx.fillStyle = myColor;
+    ctx.fill();
+
+  }
+  
+  // vẽ nhiều hình tròn
+  function createMultipleCircle() {
+    for (var i = 1; i < 30; i++) {
+      createCircle();
+    }
+  }
+
+  setInterval(createMultipleCircle,1000);
+
+  var myVar = setInterval(createMultipleCircle,1000);
+
+  function StopShow() {
+    clearInterval(myVar);
+  }
+ 
+</script>

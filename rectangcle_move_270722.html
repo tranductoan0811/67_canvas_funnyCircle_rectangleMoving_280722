@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  <canvas id="rect_canvas" width="800px;" height="600px;" style="border: 3px solid #000000;">
+
+  </canvas>
+
+
+</body>
+
+
+
+</html>
+<script>
+  // Vẽ hình chữ nhật
+  let ctx = document.getElementById("rect_canvas").getContext("2d");
+  let ctxYPosition = 20;
+
+  let rectXPosition = 20;
+  let rectYPosition = 20;
+
+  let rectWidth = 150;
+  let rectHeight = 100;
+
+
+  let TopFrameYPosition = 0;
+  let BottomFrameYPosition = 600;
+
+
+  let timeLoop = 1000;
+
+  function drawRect() {
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.fillRect(rectXPosition, rectYPosition, rectWidth, rectHeight); // 20, 20: là tọa độ điểm bắt đầu, 150, 100 là kích thước HCN
+  }
+
+  // xây dựng hàm moveCarUp() để di chuyển xe theo chiều lên/xuống (trục Y trên màn hình)
+ 
+  function moveRectUp() {
+    ctx.clearRect(20, ctxYPosition, 150, 100);
+    if (ctxYPosition > 0) {
+       ctxYPosition--;
+    }
+
+    drawRect();
+    
+  }
+
+  function moveRectDown() {
+    ctx.clearRect(20, ctxYPosition, 150, 100);
+    if (ctxYPosition + 100 < 600) {
+       ctxYPosition++;
+    }
+
+    drawRect();
+    
+  }
+
+  let yDistance = 1;
+    function moveRect() {
+      ctx.clearRect(rectXPosition, rectYPosition, rectWidth, rectHeight);
+
+      // Tự động chuyển hướng khi chạm biên
+
+      let isTouchTop = rectYPosition < TopFrameYPosition;
+      let isTouchBottom = rectYPosition + rectHeight > BottomFrameYPosition;
+      if (isTouchTop || isTouchBottom) {
+        yDistance = -yDistance;
+      }
+
+      rectYPosition += rectYPosition;
+      drawRect();
+    }
+
+  setInterval(moveRect, timeLoop);
+
+</script>
